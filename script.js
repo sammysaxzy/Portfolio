@@ -171,33 +171,15 @@ const createScrollProgress = () => {
 // Initialize scroll progress
 createScrollProgress();
 
-// Contact form handling
+// Contact form handling (FormSubmit delivery)
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            subject: document.getElementById('subject').value,
-            message: document.getElementById('message').value
-        };
-        
-        // Create mailto link
-        const mailtoLink = `mailto:oluwajeje01@email.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
-            `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-        )}`;
-        
-        // Open email client
-        window.location.href = mailtoLink;
-        
-        // Show success message
-        alert('Thank you for your message! Your email client will open to send the message.');
-        
-        // Reset form
-        contactForm.reset();
+    contactForm.addEventListener('submit', function() {
+        const submitButton = contactForm.querySelector('.btn-submit');
+        if (!submitButton) return;
+
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
     });
 }
 
